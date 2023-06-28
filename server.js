@@ -21,9 +21,54 @@ for (const interfaceName in interfaces) {
 console.log('Private IP addresses:');
 console.log(privateIPs);
 
+const http = require('http');
+
+function fetchPublicIP() {
+  return new Promise((resolve, reject) => {
+    const options = {
+      host: 'api.ipify.org',
+      path: '/?format=json',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const req = http.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      res.on('end', () => {
+        try {
+          const response = JSON.parse(data);
+          resolve(response.ip);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+
+    req.on('error', (error) => {
+      reject(error);
+    });
+
+    req.end();
+  });
+}
+
+fetchPublicIP()
+.then((publicIP) => {
+  console.log('Public IP:', publicIP);
+})
+.catch((error) => {
+  console.error('Failed to fetch public IP:', error);
+});
+
 const server = net.createServer();
 
-const PORT = 4029;
+const PORT = 4033;
 const HOST = privateIPs[0];
 
 // An Array of client/socket objects 
