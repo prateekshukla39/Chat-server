@@ -23,7 +23,7 @@ console.log(privateIPs);
 
 const server = net.createServer();
 
-const PORT = 4033;
+const PORT = 4029;
 const HOST = privateIPs[0];
 
 // An Array of client/socket objects 
