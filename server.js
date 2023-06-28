@@ -3,7 +3,7 @@ const net = require("net");
 const server = net.createServer();
 
 const PORT = 4033;
-const HOST = "216.24.57.253";
+const HOST = "127.0.0.1";
 
 // An Array of client/socket objects 
 const clients = [];
