@@ -3,7 +3,7 @@ const net = require("net");
 const server = net.createServer();
 
 const PORT = 4033;
-const HOST = "127.0.0.1";
+const HOST = process.env.HOST;
 
 // An Array of client/socket objects 
 const clients = [];
